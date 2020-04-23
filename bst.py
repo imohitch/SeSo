@@ -78,6 +78,10 @@ class BST:
       return self._findMinKeyNode(subtree.left)
 
   # Get node with maximum value in BST
+  def findMaxKeyNode(self):
+    assert self.root is not None, "Tree is empty"
+    return self._findMaxKeyNode(self.root)
+
   def _findMaxKeyNode(self, subtree):
     if subtree is None:
       return None
@@ -86,8 +90,38 @@ class BST:
     else:
       return self._findMaxKeyNode(subtree.right)
 
-  def findMaxKeyNode(self):
-    assert self.root is not None, "Tree is empty"
-    return self._findMaxKeyNode(self.root)
+  # Delete a node is present in BST
+  def delete(self, key):
+    self.root = self._delete(self.root, key)
+
+  def _delete(self, subtree, key):
+    if subtree is None:
+      return subtree
+    elif key < subtree.key:
+      subtree.left = self._delete(subtree.left, key)
+      return subtree
+    elif key > subtree.key:
+      subtree.right = self._delete(subtree.right, key)
+      return subtree
+    else:
+      if subtree.left is None and subtree.right is None:
+        del(subtree)
+        self.size -= 1
+        return None
+      elif subtree.left is None or subtree.right is None:
+        self.size -= 1
+        if subtree.left is not None:
+          left = subtree.left
+          del(subtree)
+          return left
+        else:
+          right = subtree.right
+          del(subtree)
+          return right
+      else:
+        successor = self._findMinKeyNode(subtree.right)
+        subtree.key = successor.key
+        subtree.right = self._delete(subtree.right, successor.key)
+        return subtree
 
   
