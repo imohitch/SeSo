@@ -1,4 +1,5 @@
 from queue import Queue
+from heap import MaxHeap
 
 class RadixSort:
   def __init__(self, arr, maxDigitSize):
@@ -101,3 +102,13 @@ class MergeSort:
 
   def sort(self):
     self._mergeSort(self.arr, 0 , len(self.arr)-1, self.arrT)
+
+class Heapsort:
+  def __init__(self, arr):
+    self.maxheap = MaxHeap(len(arr))
+    for key in arr:
+      self.maxheap.add(key)
+
+  def sort(self):
+    while self.maxheap.count > 0:
+      self.maxheap.elements[self.maxheap.count] = self.maxheap.extract()

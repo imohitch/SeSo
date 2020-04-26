@@ -1,3 +1,5 @@
+from queue import Queue, LifoQueue
+
 # Storage class for BST node
 class _BSTNode:
   def __init__(self, key):
@@ -39,7 +41,7 @@ class BST:
     else:
       return subtree
 
-  # Traverse a BST
+  # Traverse a BST dfs manner
   def preorder_traverse(self):
     self._traverse(self.root, "pre")
 
@@ -63,6 +65,36 @@ class BST:
 
       if order == "post":
         print(subtree.key)
+
+  # Traverse a BST in bfs manner
+  # To traverse bottomup push into stack instead of print
+  def topdown_traverse(self):
+    nodesQueue = Queue()
+    nodesQueue.put(self.root)
+    while not nodesQueue.empty():
+      node = nodesQueue.get()
+      print(node.key)
+      if node.left is not None:
+        nodesQueue.put(node.left)
+      if node.right is not None:
+        nodesQueue.put(node.right)
+
+  def bottomup_traverse(self):
+    nodesQueue = Queue()
+    nodesStack = LifoQueue()
+    nodesQueue.put(self.root)
+    
+    while not nodesQueue.empty():
+      node = nodesQueue.get()
+      nodesStack.put(node)
+      if node.left is not None:
+        nodesQueue.put(node.left)
+      if node.right is not None:
+        nodesQueue.put(node.right)
+    
+    while not nodesStack.empty():
+      node = nodesStack.get()
+      print(node.key)      
 
   # Get node with minimum value in BST
   def findMinKeyNode(self):
