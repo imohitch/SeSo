@@ -112,3 +112,35 @@ class Heapsort:
   def sort(self):
     while self.maxheap.count > 0:
       self.maxheap.elements[self.maxheap.count] = self.maxheap.extract()
+
+class Binarysearch:
+  def __init__(self, arr):
+    self.arr = arr
+
+  def search(self, key):
+    left = 0
+    right = len(self.arr) - 1
+
+    while left <= right:
+      mid = (left+right) // 2
+      if self.arr[mid] == key:
+        return True
+      elif self.arr[mid] >= key:
+        right = mid - 1
+      else:
+        left = mid + 1
+
+    return False
+
+class Bubblesort:
+  def __init__(self, arr):
+    self.arr = arr
+
+  def sort(self):
+    n = len(self.arr)
+    for i in  range(n-1):
+      for j in range(n - 1 - i):
+        if self.arr[j] > self.arr[j+1]:
+          tmp = self.arr[j]
+          self.arr[j] = self.arr[j+1]
+          self.arr[j+1] = tmp
